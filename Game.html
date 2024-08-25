@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة صندوق الألوان المتنقل</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            width: 400px;
+            height: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 2px dashed #ccc;
+            position: relative;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #4CAF50;
+            margin: 0;
+            padding: 0;
+            border: 0 solid #333;
+            border-radius: 0;
+            position: static;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        .controls label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .controls input[type="range"] {
+            margin-bottom: 10px;
+        }
+
+        #position {
+            margin-bottom: 20px;
+        }
+
+        .inner-box {
+            width: 50px;
+            height: 50px;
+            background-color: #ff6347;
+            position: relative;
+            /* الوضع الافتراضي */
+            top: 10px;
+            /* لمشاهدة التأثير */
+            left: 10px;
+            /* لمشاهدة التأثير */
+        }
+
+        .margin {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #000;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>لعبة صندوق الألوان المتنقل</h1>
+
+    <!-- الحاوية التي تحتوي على الصندوق الخاص بـ Box Model -->
+    <div id="boxModelContainer" class="container">
+        <div id="boxModelBox" class="box">Box Model Box</div>
+    </div>
+
+
+
+    <!-- تحكمات Box Model -->
+    <h2>Box Model</h2>
+    <div class="controls" style="display: flex; gap: 10px; justify-content: center;">
+
+        <div class="margin">
+            <h4>Margin</h4>
+            <div class="control">
+                <label>Margin:</label>
+                <input type="range" id="margin" min="0" max="50" value="0">
+                <span id="marginValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="marginTop">Margin Top:</label>
+                <input type="range" id="marginTop" min="0" max="100" value="0">
+                <span id="marginTopValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="marginRight">Margin Right:</label>
+                <input type="range" id="marginRight" min="0" max="100" value="0">
+                <span id="marginRightValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="marginBottom">Margin Bottom:</label>
+                <input type="range" id="marginBottom" min="0" max="100" value="0">
+                <span id="marginBottomValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="marginLeft">Margin Left:</label>
+                <input type="range" id="marginLeft" min="0" max="100" value="0">
+                <span id="marginLeftValue">0px</span>
+            </div>
+        </div>
+
+        <div class="margin">
+            <h4>Padding </h4>
+            <div class="control">
+                <label>Padding:</label>
+                <input type="range" id="padding" min="0" max="50" value="0"> <span id="paddingValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="paddingTop">Padding Top:</label>
+                <input type="range" id="paddingTop" min="0" max="100" value="0">
+                <span id="paddingTopValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="paddingRight">Padding Right:</label>
+                <input type="range" id="paddingRight" min="0" max="100" value="0">
+                <span id="paddingRightValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="paddingBottom">Padding Bottom:</label>
+                <input type="range" id="paddingBottom" min="0" max="100" value="0">
+                <span id="paddingBottomValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="paddingLeft">Padding Left:</label>
+                <input type="range" id="paddingLeft" min="0" max="100" value="0">
+                <span id="paddingLeftValue">0px</span>
+            </div>
+        </div>
+        <div class="margin">
+            <h4>Border</h4>
+            <div class="control">
+                <label>Border Width:</label>
+                <input type="range" id="border" min="0" max="20" value="0"> <span id="borderValue">0px</span>
+            </div>
+
+            <div class="control">
+                <label for="borderTop">Border Top:</label>
+                <input type="range" id="borderTop" min="0" max="20" value="0">
+                <span id="borderTopValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="borderRight">Border Right:</label>
+                <input type="range" id="borderRight" min="0" max="20" value="0">
+                <span id="borderRightValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="borderBottom">Border Bottom:</label>
+                <input type="range" id="borderBottom" min="0" max="20" value="0">
+                <span id="borderBottomValue">0px</span>
+            </div>
+            <div class="control">
+                <label for="borderLeft">Border Left:</label>
+                <input type="range" id="borderLeft" min="0" max="20" value="0">
+                <span id="borderLeftValue">0px</span>
+            </div>
+        </div>
+        <div class="margin">
+            <h4>Others</h4>
+            <div class="control">
+                <label>Border Radius:</label>
+                <input type="range" id="borderRadius" min="0" max="50" value="0"> <span
+                    id="borderRadiusValue">0px</span>
+            </div>
+            <div class="control">
+                <label>Box Width:</label>
+                <input type="range" id="boxWidth" min="50" max="300" value="100"> <span id="boxWidthValue">100px</span>
+            </div>
+            <div class="control">
+                <label>Box Height:</label>
+                <input type="range" id="boxHeight" min="50" max="300" value="100"> <span
+                    id="boxHeightValue">100px</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- الحاوية التي تحتوي على الصندوق الخاص بـ CSS Positioning -->
+    <div id="positioningContainer" class="container">
+        <div id="positioningBox" class="box">
+            Positioning Box
+            <div id="innerBox" class="inner-box">Inner Box</div>
+        </div>
+    </div>
+
+
+    <!-- تحكمات CSS Positioning -->
+    <div class="controls">
+        <h2>تحكمات CSS Positioning</h2>
+        <label>Position:</label>
+        <select id="position">
+            <option value="static">Static</option>
+            <option value="relative">Relative</option>
+            <option value="absolute">Absolute</option>
+            <option value="fixed">Fixed</option>
+        </select>
+
+        <label>Top:</label>
+        <input type="range" id="top" min="0" max="200" value="0"> <span id="topValue">0px</span>
+
+        <label>Left:</label>
+        <input type="range" id="left" min="0" max="200" value="0"> <span id="leftValue">0px</span>
+    </div>
+
+    <script>
+        // عناصر التحكم لكل جانب من margin
+        const marginTopInput = document.getElementById('marginTop');
+        const marginRightInput = document.getElementById('marginRight');
+        const marginBottomInput = document.getElementById('marginBottom');
+        const marginLeftInput = document.getElementById('marginLeft');
+
+        // عناصر التحكم لكل جانب من padding
+        const paddingTopInput = document.getElementById('paddingTop');
+        const paddingRightInput = document.getElementById('paddingRight');
+        const paddingBottomInput = document.getElementById('paddingBottom');
+        const paddingLeftInput = document.getElementById('paddingLeft');
+
+        // عناصر التحكم لكل جانب من border
+        const borderTopInput = document.getElementById('borderTop');
+        const borderRightInput = document.getElementById('borderRight');
+        const borderBottomInput = document.getElementById('borderBottom');
+        const borderLeftInput = document.getElementById('borderLeft');
+
+        // تحديث القيم لـ margin
+        marginTopInput.addEventListener('input', () => {
+            const value = marginTopInput.value + 'px';
+            boxModelBox.style.marginTop = value;
+            document.getElementById('marginTopValue').textContent = value;
+        });
+
+        marginRightInput.addEventListener('input', () => {
+            const value = marginRightInput.value + 'px';
+            boxModelBox.style.marginRight = value;
+            document.getElementById('marginRightValue').textContent = value;
+        });
+
+        marginBottomInput.addEventListener('input', () => {
+            const value = marginBottomInput.value + 'px';
+            boxModelBox.style.marginBottom = value;
+            document.getElementById('marginBottomValue').textContent = value;
+        });
+
+        marginLeftInput.addEventListener('input', () => {
+            const value = marginLeftInput.value + 'px';
+            boxModelBox.style.marginLeft = value;
+            document.getElementById('marginLeftValue').textContent = value;
+        });
+
+        // تحديث القيم لـ padding
+        paddingTopInput.addEventListener('input', () => {
+            const value = paddingTopInput.value + 'px';
+            boxModelBox.style.paddingTop = value;
+            document.getElementById('paddingTopValue').textContent = value;
+        });
+
+        paddingRightInput.addEventListener('input', () => {
+            const value = paddingRightInput.value + 'px';
+            boxModelBox.style.paddingRight = value;
+            document.getElementById('paddingRightValue').textContent = value;
+        });
+
+        paddingBottomInput.addEventListener('input', () => {
+            const value = paddingBottomInput.value + 'px';
+            boxModelBox.style.paddingBottom = value;
+            document.getElementById('paddingBottomValue').textContent = value;
+        });
+
+        paddingLeftInput.addEventListener('input', () => {
+            const value = paddingLeftInput.value + 'px';
+            boxModelBox.style.paddingLeft = value;
+            document.getElementById('paddingLeftValue').textContent = value;
+        });
+
+        // تحديث القيم لـ border
+        borderTopInput.addEventListener('input', () => {
+            const value = borderTopInput.value + 'px';
+            boxModelBox.style.borderTopWidth = value;
+            document.getElementById('borderTopValue').textContent = value;
+        });
+
+        borderRightInput.addEventListener('input', () => {
+            const value = borderRightInput.value + 'px';
+            boxModelBox.style.borderRightWidth = value;
+            document.getElementById('borderRightValue').textContent = value;
+        });
+
+        borderBottomInput.addEventListener('input', () => {
+            const value = borderBottomInput.value + 'px';
+            boxModelBox.style.borderBottomWidth = value;
+            document.getElementById('borderBottomValue').textContent = value;
+        });
+
+        borderLeftInput.addEventListener('input', () => {
+            const value = borderLeftInput.value + 'px';
+            boxModelBox.style.borderLeftWidth = value;
+            document.getElementById('borderLeftValue').textContent = value;
+        });
+
+
+        // عناصر التحكم لـ Box Model
+        const boxModelBox = document.getElementById('boxModelBox');
+        const marginInput = document.getElementById('margin');
+        const paddingInput = document.getElementById('padding');
+        const borderInput = document.getElementById('border');
+        const borderRadiusInput = document.getElementById('borderRadius');
+        const boxWidthInput = document.getElementById('boxWidth');
+        const boxHeightInput = document.getElementById('boxHeight');
+
+        // عناصر التحكم لـ CSS Positioning
+        const positioningBox = document.getElementById('positioningBox');
+        const positionSelect = document.getElementById('position');
+        const topInput = document.getElementById('top');
+        const leftInput = document.getElementById('left');
+
+        // عنصر فرعي داخل positioningBox لتحكمات relative و absolute
+        const innerBox = document.getElementById('innerBox');
+
+        // تحديث القيم لـ Box Model
+        marginInput.addEventListener('input', () => {
+            const value = marginInput.value + 'px';
+            boxModelBox.style.margin = value;
+            document.getElementById('marginValue').textContent = value;
+        });
+
+        paddingInput.addEventListener('input', () => {
+            const value = paddingInput.value + 'px';
+            boxModelBox.style.padding = value;
+            document.getElementById('paddingValue').textContent = value;
+        });
+
+        borderInput.addEventListener('input', () => {
+            const value = borderInput.value + 'px';
+            boxModelBox.style.borderWidth = value;
+            document.getElementById('borderValue').textContent = value;
+        });
+
+        borderRadiusInput.addEventListener('input', () => {
+            const value = borderRadiusInput.value + 'px';
+            boxModelBox.style.borderRadius = value;
+            document.getElementById('borderRadiusValue').textContent = value;
+        });
+
+        boxWidthInput.addEventListener('input', () => {
+            const value = boxWidthInput.value + 'px';
+            boxModelBox.style.width = value;
+            document.getElementById('boxWidthValue').textContent = value;
+        });
+
+        boxHeightInput.addEventListener('input', () => {
+            const value = boxHeightInput.value + 'px';
+            boxModelBox.style.height = value;
+            document.getElementById('boxHeightValue').textContent = value;
+        });
+
+        // تحديث القيم لـ CSS Positioning
+        positionSelect.addEventListener('change', () => {
+            innerBox.style.position = positionSelect.value;
+            updateInnerPositionControls();
+        });
+
+        topInput.addEventListener('input', () => {
+            const value = topInput.value + 'px';
+            innerBox.style.top = value;
+            document.getElementById('topValue').textContent = value;
+        });
+
+        leftInput.addEventListener('input', () => {
+            const value = leftInput.value + 'px';
+            innerBox.style.left = value;
+            document.getElementById('leftValue').textContent = value;
+        });
+
+        function updateInnerPositionControls() {
+            const position = positionSelect.value;
+            if (position === 'static') {
+                topInput.disabled = true;
+                leftInput.disabled = true;
+            } else {
+                topInput.disabled = false;
+                leftInput.disabled = false;
+            }
+        }
+
+        // استدعاء الدالة عند التحميل الأولي
+        updateInnerPositionControls();
+
+    </script>
+</body>
+
+</html>
